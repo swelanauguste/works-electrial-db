@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="col-lg-4 mx-auto"
+    method="get">
+    <input class="rounded-4 form-control"
+        type="text"
+        name="q"
+        placeholder="Search..."
+        value="{{ request.GET.q }}">
+    <br>
+    <div class="text-end">
+        <button class="btn btn-dark px-5 rounded-4"
+            type="submit">Search</button>
+    </div>
+</form>
+<hr>
+<a class="btn btn-dark px-5 rounde-4"
+    href="{% url 'electrical-create' %}">Add</a>
+<br><br>
+<ul>
+    {% for object in object_list %}
+    <li><a href="{{object.get_absolute_url}}">{{ object.name }} - {{ object.license_no }}</a></li>
+    {% empty %}
+    <li>No persons found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
