@@ -11,7 +11,25 @@
                 src="{{object.photo.url}}"
                 alt="">
         </a>
-    </div><br>
+        {% if object.signature %}
+
+        <a target="_blank"
+            href="{{ object.signature.url }}"> <img class="rounded-4"
+                width="100"
+                src="{{ object.signature.url }}"
+                alt=""></a>
+        {% endif %}
+
+        {% if object.stamp %}
+        <a target="_blank"
+            href="{{ object.stamp.url }}"> <img class="rounded-4"
+                width="100"
+                src="{{ object.stamp.url }}"
+                alt="">
+        </a>
+        {% endif %}
+    </div>
+    <br>
     {% endif %}
     <div class="card">
         <div class="card-header">
@@ -25,14 +43,7 @@
                     <p><strong>email:</strong> {{ object.email }}</p>
                     <p><strong>Phone:</strong> {{ object.phone }}</p>
                     <p><strong>Action:</strong> {{ incoming.action }}</p>
-                    {% if object.signature %}
-                    <p><strong>Signature:</strong><a target="_blank"
-                            href="{{ object.signature.url }}"> <img
-                                class="rounded-4"
-                                width="70"
-                                src="{{ object.signature.url }}"
-                                alt=""></a></p>
-                    {% endif %}
+
                 </div>
                 <div class="col-md-6">
                     <p><strong>License:</strong> {{ object.license_no }}</p>
@@ -43,16 +54,7 @@
                     </p>
                     <p><strong>Notes:</strong> {{ object.notes }}
                     </p>
-                    {% if object.stamp %}
-                    <p><strong>Stamp:</strong> <a target="_blank"
-                            href="{{ object.stamp.url }}"> <img
-                                class="rounded-4"
-                                width="70"
-                                src="{{ object.stamp.url }}"
-                                alt="">
-                        </a>
-                    </p>
-                    {% endif %}
+
 
                 </div>
             </div>

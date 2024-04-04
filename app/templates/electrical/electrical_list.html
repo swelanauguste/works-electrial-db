@@ -18,11 +18,35 @@
 <a class="btn btn-dark px-5 rounde-4"
     href="{% url 'electrical-create' %}">Add</a>
 <br><br>
-<ul>
-    {% for object in object_list %}
-    <li><a href="{{object.get_absolute_url}}">{{ object.name }} - {{ object.license_no }}</a></li>
-    {% empty %}
-    <li>No persons found.</li>
-    {% endfor %}
-</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Officer</th>
+            <th scope="col">Category</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Issued</th>
+            <th scope="col">Expires</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for object in object_list %}
+        <tr>
+            <th scope="row">1</th>
+            <td><a href="{{object.get_absolute_url}}">{{ object.name }}
+                    #{{ object.license_no }}</a></td>
+            <td>{{object.category}}</td>
+            <td>{{object.address}}</td>
+            <td>{{object.phone}}</td>
+            <td>{{object.i_date}}</td>
+            <td>{{object.ex_date}}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>Nothing</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
