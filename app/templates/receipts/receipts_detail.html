@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+   
+    <div class="card">
+        <div class="card-header">
+            <h3>{{ object }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>DOB:</strong> {{ object.receipt_no }}</p>
+                    <p><strong>Officer:</strong><a href="{{ object.electrical.get_absolute_url }}"> {{ object.electrical }}</a></p>
+                    <p><strong>Year(s):</strong> {{ object.years }}</p>
+                    <p><strong>Amount:</strong> XCD${{ object.amount }}</p>
+                    <p><strong>Date:</strong> {{ object.date }}</p>
+
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Paid:</strong> {{ object.paid }}</p>
+                    <p><strong>Notes:</strong> {{ object.notes }}
+                    </p>
+                </div>
+            </div>
+            <div class="text-end">
+                <a class="btn btn-dark px-5 rounded4"
+                    href="{% url 'receipt-update' object.pk %}">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

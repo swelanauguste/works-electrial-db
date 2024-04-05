@@ -42,7 +42,7 @@
                     <p><strong>Address:</strong> {{ object.address }}</p>
                     <p><strong>email:</strong> {{ object.email }}</p>
                     <p><strong>Phone:</strong> {{ object.phone }}</p>
-                    <p><strong>Action:</strong> {{ incoming.action }}</p>
+                    <p><strong>Action:</strong> {{ object.action }}</p>
 
                 </div>
                 <div class="col-md-6">
@@ -63,6 +63,37 @@
                     href="{% url 'electrical-update' object.pk %}">Edit</a>
             </div>
         </div>
+    </div>
+    <div class="mt-5">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Receipt number</th>
+                    <th scope="col">Officer</th>
+                    <th scope="col">date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Years</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object.receipts.all %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td><a href="{{object.get_absolute_url}}">#{{ object.receipt_no }}</a></td>
+                    <td>{{object.electrical}}</td>
+                    <td>{{object.date}}</td>
+                    <td>${{object.amount}}</td>
+                    <td>{{object.years}}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">Empty</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}
