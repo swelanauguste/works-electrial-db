@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="col-lg-4 mx-auto"
+    method="get">
+    <input class="rounded-4 form-control"
+        type="text"
+        name="q"
+        placeholder="Search..."
+        value="{{ request.GET.q }}">
+    <br>
+    <div class="text-end">
+        <button class="btn btn-dark px-5 rounded-4"
+            type="submit">Search</button>
+    </div>
+</form>
+<hr>
+<a class="btn btn-dark px-5 rounde-4"
+    href="{% url 'inspection-create' %}">Add</a>
+<br><br>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Application number</th>
+            <th scope="col">Applicant</th>
+            <th scope="col">Inspector</th>
+            <th scope="col">Location</th>
+            <th scope="col">Inspection date</th>
+            <th scope="col">Re-inspection fee</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for object in object_list %}
+        <tr>
+            <th scope="row">1</th>
+            <td>
+                <a class="text-dark"
+                    href="{{object.get_absolute_url}}">#{{ object.app_no }}</a>
+            </td>
+            <td>{{object.app_name}}</td>
+            <td>{{object.inspector}}</td>
+            <td>{{object.location}}</td>
+            <td>{{object.insp_date}}</td>
+            <td>${{object.re_insp_fee}}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7"
+                class="text-center">Empty</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -27,12 +27,13 @@ class Electrical(models.Model):
     )
     i_date = models.DateField(verbose_name="Issued Date", null=True, blank=True)
     ex_date = models.DateField(verbose_name="Expired Date", null=True, blank=True)
-
     notes = models.TextField(blank=True, null=True)
     stamp = models.FileField(upload_to="electrical/stamp/", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return reverse("electrical-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return self.name
+        return f"{self.name}(#{self.license_no})"
