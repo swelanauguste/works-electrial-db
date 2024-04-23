@@ -11,7 +11,7 @@ class ElectricalListView(ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            return Incoming.objects.filter(
+            return Electrical.objects.filter(
                 Q(name__icontains=query)
                 | Q(license_no__icontains=query)
                 | Q(category__name__icontains=query)

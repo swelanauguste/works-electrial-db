@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .forms import ReceiptsForm

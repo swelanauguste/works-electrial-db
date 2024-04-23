@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -6,12 +7,26 @@ from django.views.generic import (
     UpdateView,
 )
 
+from .forms import InspectionForm
 from .models import Inspection
 
 
 class InspectionListView(ListView):
     model = Inspection
     ordering = ["-date"]
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            return Inspection.objects.filter(
+                Q(sheet_no__icontains=query)
+                | Q(app_no__icontains=query)
+                | Q(inspector__name__icontains=query)
+                | Q(location__icontains=query)
+                | Q(defects__icontains=query)
+                | Q(re_insp_fee__icontains=query)
+            ).distinct()
+        return super().get_queryset()
 
 
 class InspectionDetailView(DetailView):
@@ -20,29 +35,9 @@ class InspectionDetailView(DetailView):
 
 class InspectionCreateView(CreateView):
     model = Inspection
-    fields = [
-        "sheet_no",
-        "date",
-        "app_no",
-        "app_name",
-        "inspector",
-        "location",
-        "insp_date",
-        "defects",
-        "re_insp_fee",
-    ]
+    form_class = InspectionForm
 
 
 class InspectionUpdateView(UpdateView):
     model = Inspection
-    fields = [
-        "sheet_no",
-        "date",
-        "app_no",
-        "app_name",
-        "inspector",
-        "location",
-        "insp_date",
-        "defects",
-        "re_insp_fee",
-    ]
+    form_class = InspectionForm
