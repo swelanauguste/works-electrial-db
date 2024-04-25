@@ -1,8 +1,10 @@
 {% load static %}
+{% load pwa %}
 <!doctype html>
 <html lang="en">
 
 <head>
+    {% progressive_web_app_meta %}
     <meta charset="utf-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1">
@@ -21,8 +23,18 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet"
-        href="{% static 'css/styles.css'%}">
+    <link rel="shortcut icon"
+        href="{% static 'img/logo.png' %}"
+        type="image/x-icon">
+
+    <style>
+        html,
+        body {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body class="bg-success bg-opacity-10">
