@@ -1,11 +1,11 @@
 from django import forms
 
-from .models import Category, Electrical
+from .models import Category, Wireman
 
 
-class ElectricalForm(forms.ModelForm):
+class WiremanForm(forms.ModelForm):
     class Meta:
-        model = Electrical
+        model = Wireman
         fields = "__all__"
         widgets = {
             "dob": forms.DateInput(attrs={"type": "date"}),

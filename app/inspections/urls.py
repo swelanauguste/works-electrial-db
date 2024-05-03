@@ -1,15 +1,10 @@
 from django.urls import path
 
-from .views import (
-    InspectionCreateView,
-    InspectionDetailView,
-    InspectionListView,
-    InspectionUpdateView,
-)
+from .views import DefectCreateView, DefectDetailView, DefectListView, DefectUpdateView
 
 urlpatterns = [
-    path("", InspectionListView.as_view(), name="inspection-list"),
-    path("detail/<int:pk>/", InspectionDetailView.as_view(), name="inspection-detail"),
-    path("create/", InspectionCreateView.as_view(), name="inspection-create"),
-    path("update/<int:pk>/", InspectionUpdateView.as_view(), name="inspection-update"),
+    path("", DefectListView.as_view(), name="defect-list"),
+    path("detail/<int:pk>/", DefectDetailView.as_view(), name="defect-detail"),
+    path("create/", DefectCreateView.as_view(), name="defect-create"),
+    path("update/<int:pk>/", DefectUpdateView.as_view(), name="defect-update"),
 ]

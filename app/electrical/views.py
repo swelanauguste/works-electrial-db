@@ -1,17 +1,17 @@
 from django.db.models import Q
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import ElectricalForm
-from .models import Category, Electrical
+from .forms import WiremanForm
+from .models import Category, Wireman
 
 
-class ElectricalListView(ListView):
-    model = Electrical
+class WiremanListView(ListView):
+    model = Wireman
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            return Electrical.objects.filter(
+            return Wireman.objects.filter(
                 Q(name__icontains=query)
                 | Q(license_no__icontains=query)
                 | Q(category__name__icontains=query)
@@ -23,15 +23,15 @@ class ElectricalListView(ListView):
         return super().get_queryset()
 
 
-class ElectricalDetailView(DetailView):
-    model = Electrical
+class WiremanDetailView(DetailView):
+    model = Wireman
 
 
-class ElectricalCreateView(CreateView):
-    model = Electrical
-    form_class = ElectricalForm
+class WiremanCreateView(CreateView):
+    model = Wireman
+    form_class = WiremanForm
 
 
-class ElectricalUpdateView(UpdateView):
-    model = Electrical
-    form_class = ElectricalForm
+class WiremanUpdateView(UpdateView):
+    model = Wireman
+    form_class = WiremanForm

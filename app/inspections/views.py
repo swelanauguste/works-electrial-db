@@ -7,18 +7,18 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import InspectionForm
-from .models import Inspection
+from .forms import DefectForm
+from .models import Defect
 
 
-class InspectionListView(ListView):
-    model = Inspection
+class DefectListView(ListView):
+    model = Defect
     ordering = ["-date"]
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            return Inspection.objects.filter(
+            return Defect.objects.filter(
                 Q(sheet_no__icontains=query)
                 | Q(app_no__icontains=query)
                 | Q(inspector__name__icontains=query)
@@ -29,15 +29,15 @@ class InspectionListView(ListView):
         return super().get_queryset()
 
 
-class InspectionDetailView(DetailView):
-    model = Inspection
+class DefectDetailView(DetailView):
+    model = Defect
 
 
-class InspectionCreateView(CreateView):
-    model = Inspection
-    form_class = InspectionForm
+class DefectCreateView(CreateView):
+    model = Defect
+    form_class = DefectForm
 
 
-class InspectionUpdateView(UpdateView):
-    model = Inspection
-    form_class = InspectionForm
+class DefectUpdateView(UpdateView):
+    model = Defect
+    form_class = DefectForm

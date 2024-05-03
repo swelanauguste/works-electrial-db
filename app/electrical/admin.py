@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Electrical, Category
+from .models import Wireman, Category
 
-admin.site.register(Electrical)
+admin.site.register(Wireman)
 admin.site.register(Category)

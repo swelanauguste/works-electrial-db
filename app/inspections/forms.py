@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import Inspection
+from .models import Defect
 
-class InspectionForm(forms.ModelForm):
+class DefectForm(forms.ModelForm):
     class Meta:
-        model = Inspection
+        model = Defect
         fields = [
             "sheet_no",
             "date",

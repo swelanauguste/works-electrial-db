@@ -11,7 +11,7 @@ class Category(models.Model):
         return self.name
 
 
-class Electrical(models.Model):
+class Wireman(models.Model):
     photo = models.FileField(upload_to="electrical/photo/", null=True, blank=True)
     name = models.CharField(max_length=100)
     dob = models.DateField(null=True, blank=True)
