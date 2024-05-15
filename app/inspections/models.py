@@ -83,7 +83,7 @@ class Inspection(models.Model):
     zone = models.CharField(max_length=100)
     vehicle = models.CharField(max_length=8, choices=vehicle_choices)
     start = models.TimeField()
-    localtion = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
     size = models.CharField(max_length=10)
     job_no = models.CharField(max_length=10)
     appl = models.CharField(max_length=5)
@@ -94,7 +94,7 @@ class Inspection(models.Model):
         Inspector, on_delete=models.CASCADE, related_name="inspectors"
     )
     assistant = models.ForeignKey(
-        Inspector, on_delete=models.CASCADE, related_name="inspectors"
+        Inspector, on_delete=models.CASCADE, related_name="assistants"
     )
 
     def get_absolute_url(self):

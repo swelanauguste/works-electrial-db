@@ -8,7 +8,42 @@ from django.views.generic import (
 )
 
 from .forms import DefectForm
-from .models import Defect
+from .models import Defect, Inspection
+
+
+class InspectionListView(ListView):
+    model = Inspection
+    ordering = ["-date"]
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            return Inspection.objects.filter(
+                Q(zone__icontains=query)
+                | Q(vehicle__icontains=query)
+                | Q(size__name__icontains=query)
+                | Q(job_no__icontains=query)
+                | Q(appl__icontains=query)
+                | Q(test_data__icontains=query)
+                | Q(status__icontains=query)
+                | Q(inspector__name__icontains=query)
+                | Q(assistance__name__icontains=query)
+            ).distinct()
+        return super().get_queryset()
+
+
+class InspectionDetailView(DetailView):
+    model = Inspection
+
+
+class InspectionCreateView(CreateView):
+    model = Inspection
+    fields = "__all__"
+
+
+class InspectionUpdateView(UpdateView):
+    model = Inspection
+    fields = "__all__"
 
 
 class DefectListView(ListView):

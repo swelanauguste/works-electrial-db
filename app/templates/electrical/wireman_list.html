@@ -16,7 +16,7 @@
 </form>
 <hr>
 <a class="btn btn-dark px-5 rounde-4"
-    href="{% url 'electrical-create' %}">Add</a>
+    href="">Add</a>
 <br><br>
 <table class="table">
     <thead>
@@ -34,7 +34,7 @@
         {% for object in object_list %}
         <tr>
             <th scope="row">1</th>
-            <td><a href="{{object.get_absolute_url}}">{{ object.name }}
+            <td><a href="">{{ object.name }}
                     #{{ object.license_no }}</a></td>
             <td>{{object.category}}</td>
             <td>{{object.address}}</td>
