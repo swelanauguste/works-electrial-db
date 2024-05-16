@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="col-lg-4 mx-auto"
+    method="get">
+    <input class="rounded-4 form-control"
+        type="text"
+        name="q"
+        placeholder="Search..."
+        value="{{ request.GET.q }}">
+</form>
+<br>
+<a class="btn btn-dark px-5 rounded-4"
+    href="{% url 'inspection-application-create' %}">Add</a>
+<br><br>
+<div class="table-responsive">
+    <table class="table table-hover table-sm small">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Application</th>
+                <th scope="col">Receipt(Amt)</th>
+                <th scope="col">Cert</th>
+                <th scope="col">Name</th>
+                <th scope="col">Area(Zone)</th>
+                <th scope="col">Contactor</th>
+                <th scope="col">LT</th>
+                <th scope="col">SKT</th>
+                <th scope="col">SW</th>
+                <th scope="col">PTS</th>
+                <th scope="col">BC</th>
+                <th scope="col">LE</th>
+                <th scope="col">LN</th>
+                <th scope="col">EN</th>
+                <th scope="col">AE</th>
+                <th scope="col">TYP</th>
+                <th scope="col">mA</th>
+                <th scope="col">S-CKTs</th>
+                <th scope="col">MN RT</th>
+                <th scope="col">INSP/ASST</th>
+                <th scope="col">Inspection date</th>
+                <th scope="col">Collected</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{object.date}}</td>
+                <td>
+                    <a class="text-dark"
+                        href="{{object.get_absolute_url}}">
+                        #{{ object.app_no }}</a>
+                </td>
+                <td>{{object.receipt_no}}(${{object.amount}})</td>
+                <td>{{object.cert_no}}</td>
+                <td>{{object.name}}</td>
+                <td>{{object.area}}({{object.zone}})</td>
+                <td>{{object.contactor}}</td>
+                <td>{{object.lights}}</td>
+                <td>{{object.sockets}}</td>
+                <td>{{object.switches}}</td>
+                <td>{{object.get_total}}</td>
+                <td>{{object.BC}}</td>
+                <td>{{object.LE}}</td>
+                <td>{{object.LN}}</td>
+                <td>{{object.EN}}</td>
+                <td>{{object.AE}}</td>
+                <td>{{object.ins_type|truncatechars:4|upper}}</td>
+                <td>{{object.mA}}mA</td>
+                <td>{{object.sub_circuit}}</td>
+                <td>{{object.main_rating}}A</td>
+                <td>
+                    {% for inspector in object.inspector.all %}
+                    <a href="">{{inspector.name|title}}</a>,
+                    {% endfor %}
+                    /
+                    {% for assistant in object.assistant.all %}
+                    <a href="">{{assistant.name|title}}</a>,
+                    {% endfor %}
+                </td>
+                <td>{{object.inspection_date}}</td>
+                <td>{{object.collected_by}}({{object.date_collected}})</td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7"
+                    class="text-center">Empty</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

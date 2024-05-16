@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load inspections_extras %}
+
+{% block content %}
+<div class="col-lg-6 mx-auto">
+    <div class="text-center">
+        <h1>Electrical Installation Inspection Report</h1>
+        <p class="fw-bold fs-5">(Defect sheets to be served on consumers)</p>
+    </div>
+    <p class="text-end text-danger"><strong>No: </strong>{{object.sheet_no}}
+    </p>
+    <p><strong>Date: </strong>{{object.date}}</p>
+    <p><strong>Application No: </strong>{{object.app_no}}</p>
+    <p><strong>Applicant's Name: </strong>{{object.app_name}}</p>
+    <p><strong>Wireman/Contractor's Name & No: </strong>{{object.inspector}}
+    </p>
+    <p>An inspection and testing of the installtion on your premises at
+        <strong>{{object.location}}</strong> was carried out on
+        <strong>{{object.insp_date}}</strong>
+    </p>
+    <p><strong>The following defects were observed:</strong></p>
+    <p>{{object.defects|mark_down}}</p>
+    <p><strong>You are advised to remedy the said defects immediately, failing which as
+        approval certificate will not be issued/a disconnection of supply to
+        your installation will be ordered *</strong></p>
+    <p><strong>(*delete whichever is not applicable)</strong></p>
+    <p><strong>Re-inspection Fee:</strong>${{object.re_insp_fee}}</p>
+
+    <div class="text-end">
+        <a class="btn btn-dark px-5 rounded4"
+            href="{% url 'inspection-application-update' object.pk %}">Edit</a>
+    </div>
+</div>
+{% endblock %}

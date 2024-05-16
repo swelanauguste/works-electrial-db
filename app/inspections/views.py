@@ -7,18 +7,53 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import DefectForm
-from .models import Defect, Inspection
+from .forms import DefectForm, InspectionApplicationForm
+from .models import Defect, InspectionApplication, InspectionDailyLog
 
 
-class InspectionListView(ListView):
-    model = Inspection
+class InspectionApplicationListView(ListView):
+    model = InspectionApplication
     ordering = ["-date"]
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            return Inspection.objects.filter(
+            return InspectionApplication.objects.filter(
+                Q(app_no__icontains=query)
+                | Q(receipt_no__icontains=query)
+                | Q(cert_no__icontains=query)
+                | Q(name__icontains=query)
+                | Q(area__icontains=query)
+                | Q(contactor__icontains=query)
+                | Q(ins_type__icontains=query)
+                | Q(collected_by__icontains=query)
+                | Q(date_collected__icontains=query)
+            ).distinct()
+        return super().get_queryset()
+
+
+class InspectionApplicationDetailView(DetailView):
+    model = InspectionApplication
+
+
+class InspectionApplicationCreateView(CreateView):
+    model = InspectionApplication
+    form_class = InspectionApplicationForm
+
+
+class InspectionApplicationUpdateView(UpdateView):
+    model = InspectionApplication
+    form_class = InspectionApplicationForm
+
+
+class InspectionDailyLogListView(ListView):
+    model = InspectionDailyLog
+    ordering = ["-date"]
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            return InspectionDailyLog.objects.filter(
                 Q(zone__icontains=query)
                 | Q(vehicle__icontains=query)
                 | Q(size__name__icontains=query)
@@ -32,17 +67,17 @@ class InspectionListView(ListView):
         return super().get_queryset()
 
 
-class InspectionDetailView(DetailView):
-    model = Inspection
+class InspectionDailyLogDetailView(DetailView):
+    model = InspectionDailyLog
 
 
-class InspectionCreateView(CreateView):
-    model = Inspection
+class InspectionDailyLogCreateView(CreateView):
+    model = InspectionDailyLog
     fields = "__all__"
 
 
-class InspectionUpdateView(UpdateView):
-    model = Inspection
+class InspectionDailyLogUpdateView(UpdateView):
+    model = InspectionDailyLog
     fields = "__all__"
 
 
