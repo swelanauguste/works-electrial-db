@@ -174,11 +174,9 @@ class InspectionApplication(models.Model):
     lights = models.IntegerField(default=0, blank=True, null=True)
     sockets = models.IntegerField(default=0, blank=True, null=True)
     switches = models.IntegerField(default=0, blank=True, null=True)
-    BC = models.IntegerField(default=0, blank=True, null=True)
     LE = models.FloatField(default=0, blank=True, null=True)
     LN = models.FloatField(default=0, blank=True, null=True)
     EN = models.FloatField(default=0, blank=True, null=True)
-    AE = models.FloatField(default=0, blank=True, null=True)
     ins_type = models.CharField(
         max_length=15,
         choices=nature_of_work_choices,
