@@ -164,7 +164,7 @@ class InspectionApplication(models.Model):
     name = models.CharField(max_length=100)
     area = models.CharField(max_length=100)
     zone = models.CharField(max_length=1, choices=zone_choices, null=True, blank=True)
-    contactor = models.ForeignKey(
+    contractor = models.ForeignKey(
         Inspector,
         on_delete=models.CASCADE,
         related_name="contractors",
@@ -189,8 +189,8 @@ class InspectionApplication(models.Model):
     mA = models.IntegerField(default=0, blank=True, null=True)
     sub_circuit = models.IntegerField(default=0, blank=True, null=True)
     main_rating = models.IntegerField(default=0, blank=True, null=True)
-    inspector = models.ManyToManyField(Inspector, related_name="app_inspectors")
-    assistant = models.ManyToManyField(Inspector, related_name="app_assistants")
+    inspector = models.ManyToManyField(Inspector, related_name="app_inspectors", blank=True)
+    assistant = models.ManyToManyField(Inspector, related_name="app_assistants", blank=True)
     inspection_date = models.DateField()
     collected_by = models.CharField(max_length=100, blank=True, null=True)
     date_collected = models.DateField(blank=True, null=True)
