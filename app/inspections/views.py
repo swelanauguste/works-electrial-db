@@ -72,6 +72,10 @@ class InspectionApplicationCreateView(CreateView):
     model = InspectionApplication
     form_class = InspectionApplicationForm
 
+    # success url to list view
+    def get_success_url(self):
+        return reverse("inspection-application-list")
+
 
 class InspectionApplicationUpdateView(UpdateView):
     model = InspectionApplication
