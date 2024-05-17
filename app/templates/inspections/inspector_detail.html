@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load inspections_extras %}
+
+{% block content %}
+<div class="col-lg-6 mx-auto">
+    <div class="row">
+        <h2>{{object.name|title}} #{{object.licence_no}}</h2>
+        <hr>
+        <div class="col">
+            <p><strong>Post: </strong>{{object.post}}</p>
+            <p><strong>Office: </strong>{{object.office}}</p>
+
+        </div>
+        <div class="col">
+            <p><strong>Email: </strong>{{object.email}}</p>
+            <p><strong>Phone: </strong>{{object.phone}}</p>
+        </div>
+        <div class="text-end">
+            <a class="btn btn-dark" href="{% url 'inspector-update' object.pk %}">Edit</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <p>Notes: {{object.notes}}</p>
+    </div>
+</div>
+{% endblock %}

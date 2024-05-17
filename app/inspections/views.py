@@ -8,7 +8,39 @@ from django.views.generic import (
 )
 
 from .forms import DefectForm, InspectionApplicationForm
-from .models import Defect, InspectionApplication, InspectionDailyLog
+from .models import Defect, InspectionApplication, InspectionDailyLog, Inspector
+
+
+class InspectorListView(ListView):
+    model = Inspector
+    ordering = ["-created_at"]
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            return Inspector.objects.filter(
+                Q(name__icontains=query)
+                | Q(licence_no__icontains=query)
+                | Q(email__icontains=query)
+                | Q(phone__icontains=query)
+                | Q(post__name__icontains=query)
+                | Q(office__name__icontains=query)
+            ).distinct()
+        return super().get_queryset()
+
+
+class InspectorDetailView(DetailView):
+    model = Inspector
+
+
+class InspectorCreateView(CreateView):
+    model = Inspector
+    fields = "__all__"
+
+
+class InspectorUpdateView(UpdateView):
+    model = Inspector
+    fields = "__all__"
 
 
 class InspectionApplicationListView(ListView):

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="col-lg-4 mx-auto"
+    method="get">
+    <input class="rounded-4 form-control"
+        type="text"
+        name="q"
+        placeholder="Search..."
+        value="{{ request.GET.q }}">
+</form>
+<br>
+<a class="btn btn-dark px-5 rounded-4"
+    href="{% url 'inspection-application-create' %}">Add</a>
+<br><br>
+<div class="table-responsive col-lg-4 mx-auto">
+    <table class="table table-hover table-sm small">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>
+                    <a class="text-dark"
+                        href="{{object.get_absolute_url}}">
+                        {{ object.name|title }} #{{object.licence_no}}</a>
+                </td>
+                <td>{{object.phone}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="24"
+                    class="text-center fw-bold">Nothing</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

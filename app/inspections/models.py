@@ -13,7 +13,7 @@ class Location(models.Model):
         return reverse("location-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name.upper()}"
 
 
 class Post(models.Model):
@@ -26,7 +26,7 @@ class Post(models.Model):
         return reverse("post-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name.upper()}"
 
 
 class Inspector(models.Model):
