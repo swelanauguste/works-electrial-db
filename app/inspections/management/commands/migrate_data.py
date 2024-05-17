@@ -32,24 +32,24 @@ class Command(BaseCommand):
                 date=date_obj,
                 app_no=row.get("app_no"),
                 receipt_no=row.get("receipt_no"),
-                amount=row.get("amount"),
+                amount=self.default_to_zero(row.get("amount")),
                 cert_no=row.get("cert_no"),
                 name=row.get("name"),
                 area=row.get("area"),
                 zone=row.get("zone"),
                 # contactor=contractor,
-                lights=row.get("lights"),
-                sockets=row.get("sockets"),
-                switches=row.get("switches"),
-                BC=row.get("BC"),
-                LE=row.get("LE"),
-                LN=row.get("LN"),
-                EN=row.get("EN"),
-                AE=row.get("AE"),
+                lights=self.default_to_zero(row.get("lights")),
+                sockets=self.default_to_zero(row.get("sockets")),
+                switches=self.default_to_zero(row.get("switches")),
+                BC=self.default_to_zero(row.get("BC")),
+                LE=self.default_to_zero(row.get("LE")),
+                LN=self.default_to_zero(row.get("LN")),
+                EN=self.default_to_zero(row.get("EN")),
+                AE=self.default_to_zero(row.get("AE")),
                 ins_type=row.get("ins_type"),
-                mA=row.get("mA"),
-                sub_circuit=row.get("sub_circuit"),
-                main_rating=row.get("main_rating"),
+                mA=self.default_to_zero(row.get("mA")),
+                sub_circuit=self.default_to_zero(row.get("sub_circuit")),
+                main_rating=self.default_to_zero(row.get("main_rating")),
                 inspection_date=inspection_date_obj,
                 collected_by=row.get("collected_by"),
                 date_collected=date_collected_obj,
@@ -80,6 +80,9 @@ class Command(BaseCommand):
             except ValueError:
                 continue
         return None
+    
+    def default_to_zero(self, value):
+        return 0 if pd.isna(value) else value
 
     # def get_inspector_by_licence_no(self, licence_no):
     #     if licence_no:

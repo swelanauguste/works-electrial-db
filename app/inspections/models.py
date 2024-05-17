@@ -156,7 +156,7 @@ class InspectionApplication(models.Model):
         ("2", "Two"),
         ("3", "Three"),
     ]
-    date = models.DateField()
+    date = models.DateField(blank=True, null=True)
     app_no = models.CharField(max_length=5, verbose_name="application number")
     receipt_no = models.CharField(max_length=10, verbose_name="receipt number")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
