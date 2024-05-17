@@ -11,15 +11,15 @@ then
     echo "PostgreSQL started"
 fi
 
-python manage.py migrate
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser --username cworks --email ict.infrastructure@govt.lc --noinput
-python manage.py add_post
-python manage.py add_locations
-python manage.py add_inspectors
-python manage.py add_electricians
+# python manage.py migrate
+# python manage.py makemigrations
+# python manage.py migrate
+# python manage.py createsuperuser --username cworks --email ict.infrastructure@govt.lc --noinput
+# python manage.py add_post
+# python manage.py add_locations
+# python manage.py add_inspectors
+# python manage.py add_electricians
 # python manage.py loaddata  --exclude=auth.permission --exclude=contenttypes db3_5_2024.json
-python manage.py collectstatic --noinput
+# python manage.py collectstatic --noinput
 
 exec "$@"
