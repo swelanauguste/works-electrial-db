@@ -11,9 +11,9 @@ then
     echo "PostgreSQL started"
 fi
 
-# python manage.py migrate
-# python manage.py makemigrations
-# python manage.py migrate
+python manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
 # python manage.py createsuperuser --username cworks --email ict.infrastructure@govt.lc --noinput
 # python manage.py add_post
 # python manage.py add_locations
