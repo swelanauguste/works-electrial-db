@@ -9,10 +9,10 @@ from .views import (
     InspectionApplicationDetailView,
     InspectionApplicationListView,
     InspectionApplicationUpdateView,
-    InspectorCreateView,
-    InspectorDetailView,
-    InspectorListView,
-    InspectorUpdateView,
+    OfficerCreateView,
+    OfficerDetailView,
+    OfficerListView,
+    OfficerUpdateView,
 )
 
 urlpatterns = [
@@ -42,16 +42,16 @@ urlpatterns = [
     path("create/", DefectCreateView.as_view(), name="defect-create"),
     path("update/<int:pk>/", DefectUpdateView.as_view(), name="defect-update"),
     #
-    path("inspectors/", InspectorListView.as_view(), name="inspector-list"),
+    path("officers/", OfficerListView.as_view(), name="officer-list"),
     path(
-        "inspector/detail/<int:pk>/",
-        InspectorDetailView.as_view(),
-        name="inspector-detail",
+        "officer/detail/<int:pk>/",
+        OfficerDetailView.as_view(),
+        name="officer-detail",
     ),
     path(
-        "inspector/update/<int:pk>/",
-        InspectorUpdateView.as_view(),
-        name="inspector-update",
+        "officer/update/<int:pk>/",
+        OfficerUpdateView.as_view(),
+        name="officer-update",
     ),
-    path("inspector/create/", InspectorCreateView.as_view(), name="inspector-create"),
+    path("officer/create/", OfficerCreateView.as_view(), name="officer-create"),
 ]

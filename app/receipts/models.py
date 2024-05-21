@@ -1,12 +1,11 @@
 from django.db import models
 from django.urls import reverse
-from electrical.models import Wireman
-
+from inspections.models import Officer
 
 class Receipts(models.Model):
     receipt_no = models.CharField(max_length=10)
-    electrical = models.ForeignKey(
-        Wireman, on_delete=models.CASCADE, related_name="receipts"
+    officer = models.ForeignKey(
+        Officer, on_delete=models.CASCADE, related_name="receipts", null=True, blank=True
     )
     years = models.IntegerField(default=1)
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=202)

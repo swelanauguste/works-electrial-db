@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from electrical.models import Wireman
 
 
 class Location(models.Model):
@@ -28,8 +27,16 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.name.upper()}"
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
 
-class Inspector(models.Model):
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
+class Officer(models.Model):
     name = models.CharField(max_length=100)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="posts", null=True, blank=True
@@ -44,15 +51,25 @@ class Inspector(models.Model):
     )
     email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
-    # log_sheet = models.FileField(
-    #     upload_to="inspections/log_sheets/", null=True, blank=True
-    # )
     notes = models.TextField(blank=True, null=True)
+    photo = models.FileField(upload_to="electrical/photo/", null=True, blank=True)
+    dob = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=100, null=True, blank=True)
+    signature = models.FileField(
+        upload_to="electrical/signature/", null=True, blank=True
+    )
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=True, blank=True
+    )
+    i_date = models.DateField(verbose_name="Issued Date", null=True, blank=True)
+    ex_date = models.DateField(verbose_name="Expired Date", null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
+    stamp = models.FileField(upload_to="electrical/stamp/", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse("inspector-detail", kwargs={"pk": self.pk})
+        return reverse("officer-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         if self.licence_no:
@@ -94,11 +111,19 @@ class InspectionDailyLog(models.Model):
     test_data = models.CharField(max_length=255)
     status = models.CharField(max_length=4, choices=status_choices)
     end = models.TimeField()
-    inspector = models.ForeignKey(
-        Inspector, on_delete=models.CASCADE, related_name="inspectors"
+    officer = models.ForeignKey(
+        Officer,
+        on_delete=models.CASCADE,
+        related_name="officers",
+        null=True,
+        blank=True,
     )
     assistant = models.ForeignKey(
-        Inspector, on_delete=models.CASCADE, related_name="assistants"
+        Officer,
+        on_delete=models.CASCADE,
+        related_name="assistants",
+        null=True,
+        blank=True,
     )
 
     def get_absolute_url(self):
@@ -113,8 +138,8 @@ class Defect(models.Model):
     date = models.DateField()
     app_no = models.CharField(max_length=5, verbose_name="application number")
     app_name = models.CharField(max_length=100, verbose_name="applicant's name")
-    wireman = models.ForeignKey(
-        Wireman,
+    officer = models.ForeignKey(
+        Officer,
         on_delete=models.CASCADE,
         related_name="wiremen",
         verbose_name="wireman/contactor",
@@ -165,7 +190,7 @@ class InspectionApplication(models.Model):
     area = models.CharField(max_length=100)
     zone = models.CharField(max_length=1, choices=zone_choices, null=True, blank=True)
     contractor = models.ForeignKey(
-        Inspector,
+        Officer,
         on_delete=models.CASCADE,
         related_name="contractors",
         null=True,
@@ -187,8 +212,12 @@ class InspectionApplication(models.Model):
     mA = models.IntegerField(default=0, blank=True, null=True)
     sub_circuit = models.IntegerField(default=0, blank=True, null=True)
     main_rating = models.IntegerField(default=0, blank=True, null=True)
-    inspector = models.ManyToManyField(Inspector, related_name="app_inspectors", blank=True)
-    assistant = models.ManyToManyField(Inspector, related_name="app_assistants", blank=True)
+    inspector = models.ManyToManyField(
+        Officer, related_name="app_inspectors", blank=True
+    )
+    assistant = models.ManyToManyField(
+        Officer, related_name="app_assistants", blank=True
+    )
     inspection_date = models.DateField()
     collected_by = models.CharField(max_length=100, blank=True, null=True)
     date_collected = models.DateField(blank=True, null=True)

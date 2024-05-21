@@ -8,17 +8,17 @@ from django.views.generic import (
 )
 
 from .forms import DefectForm, InspectionApplicationForm
-from .models import Defect, InspectionApplication, InspectionDailyLog, Inspector
+from .models import Defect, InspectionApplication, InspectionDailyLog, Officer
 
 
-class InspectorListView(ListView):
-    model = Inspector
+class OfficerListView(ListView):
+    model = Officer
     ordering = ["-created_at"]
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            return Inspector.objects.filter(
+            return Officer.objects.filter(
                 Q(name__icontains=query)
                 | Q(licence_no__icontains=query)
                 | Q(email__icontains=query)
@@ -29,17 +29,17 @@ class InspectorListView(ListView):
         return super().get_queryset()
 
 
-class InspectorDetailView(DetailView):
-    model = Inspector
+class OfficerDetailView(DetailView):
+    model = Officer
 
 
-class InspectorCreateView(CreateView):
-    model = Inspector
+class OfficerCreateView(CreateView):
+    model = Officer
     fields = "__all__"
 
 
-class InspectorUpdateView(UpdateView):
-    model = Inspector
+class OfficerUpdateView(UpdateView):
+    model = Officer
     fields = "__all__"
 
 
