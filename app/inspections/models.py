@@ -27,6 +27,7 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.name.upper()}"
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -35,6 +36,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Officer(models.Model):
     name = models.CharField(max_length=100)
@@ -90,6 +92,7 @@ class InspectionDailyLog(models.Model):
         ("north", "North"),
         ("central", "Central"),
         ("east/west", "East/West"),
+        ("south", "South"),
         ("special", "Special"),
     ]
 
@@ -164,31 +167,32 @@ class Defect(models.Model):
 
 
 class InspectionApplication(models.Model):
-    inspection_type_choices = [
-        ("new", "New"),
-        ("alteration", "Alteration"),
-        ("extension", "Extension"),
-        ("reconnection", "Reconnection"),
+    INSTALLATION_TYPE_CHOICES = [
+        ("1P", "1Phase"),
+        ("3P", "3Phase"),
     ]
     nature_of_work_choices = [
         ("dom", "Domestic"),
         ("com", "Commercial"),
         ("temp", "Temporary"),
         ("rout", "Routine"),
+        ("perd", "Periodic"),
     ]
-    zone_choices = [
-        ("1", "One"),
-        ("2", "Two"),
-        ("3", "Three"),
+    ZONE_CHOICES = [
+        ("north", "North"),
+        ("central", "Central"),
+        ("east/west", "East/West"),
+        ("south", "South"),
+        ("special", "Special"),
     ]
     date = models.DateField(blank=True, null=True)
-    app_no = models.CharField(max_length=5, verbose_name="application number")
+    job_no = models.CharField(max_length=5, verbose_name="application number")
     receipt_no = models.CharField(max_length=10, verbose_name="receipt number")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     cert_no = models.CharField(max_length=10, verbose_name="certificate number")
     name = models.CharField(max_length=100)
     area = models.CharField(max_length=100)
-    zone = models.CharField(max_length=1, choices=zone_choices, null=True, blank=True)
+    zone = models.CharField(max_length=10, choices=ZONE_CHOICES, null=True, blank=True)
     contractor = models.ForeignKey(
         Officer,
         on_delete=models.CASCADE,
@@ -199,10 +203,28 @@ class InspectionApplication(models.Model):
     lights = models.IntegerField(default=0, blank=True, null=True)
     sockets = models.IntegerField(default=0, blank=True, null=True)
     switches = models.IntegerField(default=0, blank=True, null=True)
-    LE = models.FloatField(default=0, blank=True, null=True)
+    inst_type = models.CharField(
+        max_length=6,
+        choices=INSTALLATION_TYPE_CHOICES,
+        null=True,
+        blank=True,
+        help_text="Installation Phase Type",
+    )
     LN = models.FloatField(default=0, blank=True, null=True)
+    NE = models.FloatField(default=0, blank=True, null=True)
+    LE = models.FloatField(default=0, blank=True, null=True)
+    L1_L3 = models.FloatField(default=0, blank=True, null=True)
+    L3_L2 = models.FloatField(default=0, blank=True, null=True)
+    L1_L2 = models.FloatField(default=0, blank=True, null=True)
+    L1_L3_L2_N = models.FloatField(default=0, blank=True, null=True)
+    L1_L3_L2_E = models.FloatField(default=0, blank=True, null=True)
+    E = models.FloatField(default=0, blank=True, null=True)
     EN = models.FloatField(default=0, blank=True, null=True)
-    ins_type = models.CharField(
+    RE = models.FloatField(default=0, blank=True, null=True)
+    kW = models.FloatField(default=0, blank=True, null=True)
+    next_inspection = models.DateField(blank=True, null=True)
+    CT_RT = models.CharField(max_length=100, blank=True, null=True)
+    insp_type = models.CharField(
         max_length=15,
         choices=nature_of_work_choices,
         verbose_name="inspection type",

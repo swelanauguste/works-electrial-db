@@ -20,6 +20,6 @@ python manage.py add_locations
 # python manage.py add_inspectors
 # python manage.py add_electricians
 # python manage.py loaddata  --exclude=auth.permission --exclude=contenttypes db3_5_2024.json
-# python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput
 
 exec "$@"
