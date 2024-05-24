@@ -24,5 +24,21 @@
     <div class="row">
         <p>Notes: {{object.notes}}</p>
     </div>
+    {% if object.photo %}
+    <div class="row">
+        <p><img width="300" src="{{object.photo.url}}" alt=""></p>
+    </div>
+    {% endif %}
+    {% if object.signature %}
+    <div class="row">
+        <p><img class="" width="300" src="{{object.signature.url}}" alt=""></p>
+    </div>
+    {% endif %}
+    {% if object.stamp %}
+    <div class="row">
+        <p><img width="300" src="{{object.stamp.url}}" alt=""></p>
+    </div>
+    {% endif %}
+ 
 </div>
 {% endblock %}
